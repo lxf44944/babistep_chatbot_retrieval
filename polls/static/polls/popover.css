@@ -1,0 +1,76 @@
+﻿@keyframes slide-top {
+  0% {
+    opacity: 0;
+    transform: translateY(-15%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes slide-right {
+  0% {
+    opacity: 0;
+    transform: translateX(15%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes slide-bottom {
+  0% {
+    opacity: 0;
+    transform: translateY(15%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes slide-left {
+  0% {
+    opacity: 0;
+    transform: translateX(-15%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.popover {
+  font-family: Noto Sans SC, sans-serif;
+  font-weight: 300;
+  text-align: center;
+  color: white;
+  width: 75vh;
+  padding: 1.5em;
+  border-radius: 28px;
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.popover--bottom {
+  margin-top: 16px;
+  animation: 0.4s slide-bottom;
+}
+.popover--bottom::before, .popover--bottom::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -8px;
+  border: 8px solid transparent;
+  border-bottom-color: rgba(0, 0, 0, 0.12);
+}
+.popover--bottom::before {
+  border-color: transparent;
+}
+
+@media (max-width: 640px) {
+  .popover {
+    width: 35vh;
+    font-size: 9px;
+    border-radius: 40px;
+  }
+
+}

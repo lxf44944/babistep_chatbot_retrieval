@@ -1,0 +1,58 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>search page</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}" charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'polls/popover.css' %}" charset="UTF-8">
+
+    <link href="https://fonts.googleapis.com/css?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+SC&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <main>
+        <div class="background">
+            <div class="purple"></div>
+            <div class="green"></div>
+            <div class="red"></div>
+            <div class="blue"></div>
+        </div>
+        <div class="content">
+            <div class="logo">
+                <h1>小小步</h1>
+            </div>
+            <form id="search" action="{% url 'polls:ask' %}" method="post">
+                {% csrf_token %}
+                <div class="search-bar">
+                    <input class="search-input" name="question" type="text">
+                    <input type="image" aria-hidden="true"
+                            class="svg-icon search-right-icon"
+                            src="{% static 'polls/img/lightbulb.svg' %}" alt="lightbulb icon"
+                    />
+                </div>
+                <div class="info">
+                    <img id="trigger" data-popover-target="info-popover" aria-hidden="true" class="svg-icon info-icon" src="{% static 'polls/img/round-info-button.svg' %}">
+                    <template data-popover="info-popover">
+                        使用提示：本网站提供市场上已有日常生活产品或服务的趣味对比
+                        举例：用户输入“洛杉矶市区最好吃的海南鸡饭是哪家？”
+                        得到回答“三亚市区最本地的5星级酒店是XXXXX酒店”
+                        团队希望帮助用户发掘生活中有趣的选择。
+                    </template>
+                </div>
+            </form>
+        </div>
+        <footer>
+            <div>
+                <p>小小步 © 2020 &middot;<a href="http://www.beian.miit.gov.cn">粤ICP备19147212号琼</a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=46020402000087"><img src="{% static 'polls/img/authority.png' %}" />琼公网安备 46020402000087号</a></p>
+                <p>Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a>, <a href="https://www.flaticon.com/authors/gregor-cresnar" title="Good Ware">Gregor Cresnar</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></p>
+            </div>
+        </footer>
+    </main>
+<script type="text/javascript" src="{% static 'polls/popover.js' %}"> </script>
+</body>
+
+</html>

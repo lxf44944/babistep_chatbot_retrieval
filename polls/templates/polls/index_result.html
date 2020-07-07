@@ -1,0 +1,90 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Search result page</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'polls/style.css' %}">
+    <link rel="stylesheet" href="{% static 'polls/popover.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+SC&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <main>
+        <div class="background">
+            <div class="purple">
+            </div>
+            <div class="green">
+            </div>
+            <div class="red">
+            </div>
+            <div class="blue">
+            </div>
+        </div>
+        <div class="content">
+            <div class="logo">
+                <h1>小小步</h1>
+            </div>
+            <div class="active-area">
+                <form id="search" action="">
+                    <div class="search-bar">
+                        <input class="search-input-result" value="{{ answer.answer_text }}{% if not answer.answer_text %}小小步还没学会这个问题呢，等我问下师父再来告诉你答案哈~{% endif %}" disabled />
+                        <a href="{% url 'polls:home' %}">
+                            <img aria-hidden="true"
+                                class="svg-icon search-left-icon"
+                                src="{% static 'polls/img/previous.svg' %}"
+                                alt="arrow-back"
+                            />
+                        </a>
+                    </div>
+                    <div class="info">
+                    <img id="trigger" data-popover-target="info-popover" aria-hidden="true" class="svg-icon info-icon" src="{% static 'polls/img/round-info-button.svg' %}">
+                        <template data-popover="info-popover">
+                            使用提示：本网站提供市场上已有日常生活产品或服务的趣味对比
+                            举例：用户输入“洛杉矶市区最好吃的海南鸡饭是哪家？”
+                            得到回答“三亚市区最本地的5星级酒店是XXXXX酒店”
+                            团队希望帮助用户发掘生活中有趣的选择。
+                        </template>
+                    </div>
+                </form>
+                <form id="vote" action="">
+                    <div class="rate-answer" >
+                        <div class="emoji">
+                            <a href="#" onclick="disappear(event)"><img src="{% static 'polls/img/emoji/laughing.svg' %}" alt="emoji-laughing"></a>
+                        </div>
+                        <div class="emoji">
+                            <a href="#" onclick="disappear(event)"><img src="{% static 'polls/img/emoji/wink.svg' %}" alt="emoji-wink"></a>
+                        </div>
+                        <div class="emoji">
+                            <a href="#" onclick="disappear(event)"><img src="{% static 'polls/img/emoji/sad.svg' %}" alt="emoji-sad"></a>
+                        </div>
+                        <div class="emoji">
+                            <a href="#" onclick="disappear(event)"><img src="{% static 'polls/img/emoji/crying.svg' %}" alt="emoji-crying"></a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <footer>
+            <div>
+              <p>小小步 © 2020 &middot;<a href="http://www.beian.miit.gov.cn">粤ICP备19147212号琼</a><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=46020402000087"><img src="{% static 'polls/img/authority.png' %}" />琼公网安备 46020402000087号</a></p>
+                <p>Icons made by <a href="https://www.flaticon.com/authors/good-ware" title="Good Ware">Good Ware</a>, <a href="https://www.flaticon.com/authors/gregor-cresnar" title="Good Ware">Gregor Cresnar</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></p>
+            </div>
+        </footer>
+    </main>
+<script type="text/javascript" src="{% static 'polls/popover.js' %}"> </script>
+<script type="text/javascript">
+    function disappear(e) {
+        e.preventDefault();
+        const emoji = document.getElementsByClassName('emoji')
+        for (i = 0; i < emoji.length; i++) {
+            emoji[i].style.display = 'none';
+        }
+    }
+</script>
+</body>
+
+</html>
