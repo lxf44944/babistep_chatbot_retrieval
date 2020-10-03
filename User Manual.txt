@@ -35,7 +35,6 @@ c. 终端运行question.py: python3 question.py (如果数据较多等待时间�
 d. 脚本会自动更新es，当终端打印出：Are you sure you want to delete the 'questions' indexes? [y/N]: 选择y/N 决定是否更新es
 
 2.网站功能
-选择creatures.csv 右键查看详细信息， 复制其绝对路径， 在polls文件夹下找到views.py文件，更改第84行代码 cat = pd.read_csv('/babistep_retrieval-based/creatures.csv') 中单引号内的文件路径更改为之前复制的文件路径，保存
 启动Django
 a、启动命令
 python manage.py runserver
