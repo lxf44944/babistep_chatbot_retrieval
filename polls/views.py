@@ -81,7 +81,7 @@ def ask(request):
     question_text = request.POST['question'].strip()                                    # 获取提的问题
     print('question_text:', question_text)
     ap = 'we'                                                                           # 用于储存动植物名称，默认为it
-    cat = pd.read_csv('/babistep_retrieval-based/creatures.csv')                 # 读取动植物列表(需要手动修改绝对路径)
+    cat = pd.read_csv('../babistep_retrieval-based/creatures.csv')                 # 读取动植物列表(需要手动修改绝对路径)
     category = cat.columns                                                              # 获取表头
     dicat = {}                                                                          # 把表头以字典形式存储
     i=0
