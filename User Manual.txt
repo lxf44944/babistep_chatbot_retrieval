@@ -1,0 +1,45 @@
+环境配置 python 3.6 / mysql sever version: 8.0.21
+Package                  Version
+------------------------ -------------------
+asgiref                  3.2.10
+asn1crypto               1.4.0
+certifi                  2020.6.20
+cffi                     1.14.2
+cryptography             2.6.1
+Django                   3.1
+django-elasticsearch-dsl 7.1.4
+elasticsearch            7.9.0
+elasticsearch-dsl        7.2.1
+jieba                    0.42.1
+mysqlclient              1.4.6
+numpy                    1.19.2
+pandas                   1.1.2
+pip                      20.2.2
+pycparser                2.20
+PyMySQL                  0.10.0
+python-dateutil          2.8.1
+pytz                     2020.1
+setuptools               49.6.0.post20200814
+six                      1.15.0
+sqlparse                 0.3.1
+urllib3                  1.25.10
+wheel                    0.34.2
+
+1.更新数据库数据
+a、后台启动命令
+elastic-search-7.4.2/bin/elasticsearch -d
+可以访问 http://127.0.0.1:9200/ 查看是否启动成功
+b、进入代码根目录
+cd babistep_retrieval-based
+c. 终端运行question.py: python3 question.py (如果数据较多等待时间较长)
+d. 脚本会自动更新es，当终端打印出：Are you sure you want to delete the 'questions' indexes? [y/N]: 选择y/N 决定是否更新es
+
+2.网站功能
+选择creatures.csv 右键查看详细信息， 复制其绝对路径， 在polls文件夹下找到views.py文件，更改第84行代码 cat = pd.read_csv('/babistep_retrieval-based/creatures.csv') 中单引号内的文件路径更改为之前复制的文件路径，保存
+启动Django
+a、启动命令
+python manage.py runserver
+b、访问首页 
+http://127.0.0.1:8000/ 
+c、访问后台管理页 
+http://127.0.0.1:8000/admin/
