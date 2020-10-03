@@ -9,6 +9,9 @@ from .models import Answer, Question
 from .documents import QuestionDocument
 
 import random
+import pandas as pd
+import numpy as np
+import re
 
 
 class IndexView(generic.ListView):
@@ -72,11 +75,46 @@ def index_result(request):
     return render(request, 'polls/index_result.html')
 
 
-# 提问模块
+# 提问模块(提取动植物种类)
 def ask(request):
-    question_text = request.POST['question'].strip()  # 获取提的问题
+    reg = "[^A-Za-z\u4e00-\u9fa5]" #用于去除类别中的标点
+    question_text = request.POST['question'].strip()                                    # 获取提的问题
     print('question_text:', question_text)
+    ap = 'we'                                                                           # 用于储存动植物名称，默认为it
+    cat = pd.read_csv('/Users/liyijie/GitHub/babistep_retrieval-based/creatures.csv')   # 读取动植物列表
+    category = cat.columns                                                              # 获取表头
+    dicat = {}                                                                          # 把表头以字典形式存储
+    i=0
+    for c in category:
+        dicat[i] = re.sub(reg, ' ', c)
+        i=i+1
+    dic = {}                                                                            # 把动植物名称与种类对应生成字典
+    m = cat.shape[0]                                                                    # 获取总行数
+    n = cat.shape[1]                                                                    # 获取总列数
+    for p in range(n):
+        for q in range(m):
+            dic[cat.iloc[[q],[p]].values[0][0]] = dicat[p]
+            q=q+1
+        p=p+1
+    t = str(question_text)
+    for p in range(n):                                                                  # 用csv中所有动植物名称和问题进行匹配
+        p=p+1
+        for q in range(m):
+            q=q+1
+            c = str(cat.iloc[[q-1],[p-1]].values[0][0])                                 #去除连接符
+            cc = c.split()
+            ccc = " ".join(cc)
+            flag = re.search(ccc,t)                                     
+            if bool(flag) == True:
+                ap = c
+                question_text = t.replace(c,dic[c])
+                break
+        else:
+            continue
+        break
+    print('question_text(modified):', question_text)
     answer = get_similar_question_answer(question_text)  # 获取答案
+    answer.answer_text = ap + " has a gift for you at " + answer.answer_text
     # 查找是否有人问过相同问题
     questions = Question.objects.filter(question_text=question_text)
     questions_len = len(questions)
@@ -96,7 +134,7 @@ def ask(request):
     return render(request, 'polls/index_result.html', {'question': question, 'answer': answer})
 
 
-# 获取相似问题答案
+# 获取相似问题答案（a标签超级链接）
 def get_similar_question_answer(question_text):
     answer = Answer()  # 空答案初始化
     # seg_list = jieba.cut(question_text)  # 默认是精确模式
